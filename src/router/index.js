@@ -1,14 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import beforeEach from './beforeEach'
+import routes from './routes'
 
 Vue.use(VueRouter)
 
-function load (component) {
-  // '@' is aliased to src/components
-  return () => import(`@/${component}.vue`)
-}
-
-export default new VueRouter({
+const router = new VueRouter({
   /*
    * NOTE! VueRouter "history" mode DOESN'T works for Cordova builds,
    * it is only to be used only for websites.
@@ -20,11 +17,9 @@ export default new VueRouter({
    * If switching back to default "hash" mode, don't forget to set the
    * build publicPath back to '' so Cordova builds work again.
    */
-
-  routes: [
-    { path: '/', component: load('Hello') },
-
-    // Always leave this last one
-    { path: '*', component: load('Error404') } // Not found
-  ]
+  ...routes
 })
+
+router.beforeEach(beforeEach)
+
+export default router
