@@ -1,12 +1,18 @@
-import { routes as auth } from './auth'
+import { routes as auth } from 'navigate/auth'
 import Home from 'components/Home'
 
-const home = {
-  name: 'home-view',
-  path: '/',
-  meta: { requiresAuth: true },
-  component: Home
-}
+const routes = [
+  {
+    path: '/',
+    component: Home,
+    meta: {
+      requiresAuth: true
+    },
+    children: [
 
-const routes = [ ...home, ...auth ]
+    ]
+  },
+  ...auth
+]
+
 export default [ ...routes ]
